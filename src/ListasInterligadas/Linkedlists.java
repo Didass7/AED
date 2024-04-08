@@ -182,7 +182,7 @@ public class Linkedlists {
             e.printStackTrace();
         }
 
-        String[] palavras = {"trazemos", "intulhos", "glosa",
+        String[] palavras = {"trazemoss", "intulhos", "glosa",
                 "assombrados", "sinceramente", "urubu", "fumou", "aope", "viçosos", "repercurtir"};
         for (String palavra : palavras) {
             if (contains(palavra)) {
