@@ -4,20 +4,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Linkedlists {
+public class ListasInterligadas {
 
+    //Nó inicial da lista
     private static No inicio;
+
+    //Defenição da classe nó
     private static class No {
         String valor;
         No proximo;
 
+        //Construtor do nó
         public No(String valor) {
             this.valor = valor;
             this.proximo = null;
         }
     }
 
+    //método para adicionar uma palavra à lista
     public static void adicionar(String valor) {
+        //se a lista estiver vazia cria o primeiro nó
         if (inicio == null) {
             inicio = new No(valor);
         } else {
@@ -25,16 +31,18 @@ public class Linkedlists {
             while (temp.proximo != null) {
                 temp = temp.proximo;
             }
-            temp.proximo = new No(valor);
+            temp.proximo = new No(valor); //adiciona um novo nó ao final
         }
     }
 
-    public static int indexOf(String valor) {
+    public static int indiceDaPalavra(String valor) {
         int index = 0;
         No temp = inicio;
         while (temp != null) {
             if (temp.valor.equals(valor)) {
                 return index;
+
+                //retorna o indice da palavra até
             }
             temp = temp.proximo;
             index++;
@@ -48,15 +56,16 @@ public class Linkedlists {
 
         while (atual != null) {
             if (atual.valor.equals(valor)) {
-                if (anterior == null) { // Se o nó a ser removido for o primeiro
+                if (anterior == null) { // se o nó a ser removido for o primeiro
                     inicio = atual.proximo;
                 } else {
                     anterior.proximo = atual.proximo;
                 }
-                return; // Sai do método após remover o nó
+                return; // sai do método após remover o nó
             }
             anterior = atual;
             atual = atual.proximo;
+            // avança para o próximo nó
         }
     }
 
@@ -64,11 +73,11 @@ public class Linkedlists {
         No temp = inicio;
         while (temp != null) {
             if (temp.valor.equals(palavra)) {
-                return true; // Se encontrarmos a palavra, retorna true
+                return true; // se encontrarmos a palavra, retorna true
             }
             temp = temp.proximo;
         }
-        return false; // Se não encontrarmos a palavra, retorna false
+        return false; // se não encontrarmos a palavra, retorna false
     }
 
 
@@ -120,7 +129,7 @@ public class Linkedlists {
     // Quanto tempo demora a ler as palavras
     private static void tempoDeExecucaoLerPalavras() {
         String tmp;
-        File file = new File("D:\\Desktop\\mods\\palavras.txt");
+        File file = new File("C:\\Users\\diogo\\Downloads\\palavras.txt");
 
         try (Scanner leitor = new Scanner(file)) {
             while (leitor.hasNextLine()) {
@@ -134,10 +143,10 @@ public class Linkedlists {
             e.printStackTrace();
         }
     }
-
+    //Quanto tempo demora a encontrar uma palavra
     private static void tempoDeExecucaoEncontrarPalavra() {
         String tmp;
-        File file = new File("D:\\Desktop\\mods\\palavras.txt");
+        File file = new File("C:\\Users\\diogo\\Downloads\\palavras.txt");
         try (Scanner leitor = new Scanner(file)) {
             while (leitor.hasNextLine()) {
                 tmp = leitor.nextLine();
@@ -153,12 +162,15 @@ public class Linkedlists {
 
         String[] palavras = {"trazemos", "intulhos", "glosa",
                 "assombrados", "sinceramente", "urubu", "fumou", "aope", "viçosos", "repercurtir"};
+
+        //ciclo para encontrar quanto tempo demorou para encontrar cada palavra individualmente
         for (String palavra : palavras) {
             long inicio = System.nanoTime();
-            int posicao = indexOf(palavra);
+            int posicao = indiceDaPalavra(palavra);
             long fim = System.nanoTime();
             long tempo = fim - inicio;
-            if (posicao != -1) {
+            if (posicao != -1) { //se a palavra for diferente de -1 (sendo -1 significado de não encontrada),
+                // informa a sua posição e o tempo que demorou a encontrar cada palavra
                 System.out.println("A posição da palavra '" + palavra + "' é: " + posicao);
                 System.out.println("Tempo para encontrar a palavra '" + palavra + "': " + tempo + " nanosegundos\n");
             } else {
@@ -166,10 +178,10 @@ public class Linkedlists {
             }
         }
     }
-
+    //Quanto tempo demora a remover uma palavra
     private static void tempoDeExecucaoEliminarPalavra() {
         String tmp;
-        File file = new File("D:\\Desktop\\mods\\palavras.txt");
+        File file = new File("C:\\Users\\diogo\\Downloads\\palavras.txt");
         try (Scanner leitor = new Scanner(file)) {
             while (leitor.hasNextLine()) {
                 tmp = leitor.nextLine();
@@ -182,8 +194,10 @@ public class Linkedlists {
             e.printStackTrace();
         }
 
-        String[] palavras = {"trazemoss", "intulhos", "glosa",
+        String[] palavras = {"trazemos", "intulhos", "glosa",
                 "assombrados", "sinceramente", "urubu", "fumou", "aope", "viçosos", "repercurtir"};
+
+        //ciclo para encontrar quanto tempo demorou para encontrar cada palavra individualmente
         for (String palavra : palavras) {
             if (contains(palavra)) {
                 long inicio = System.nanoTime();

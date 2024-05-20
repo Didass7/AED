@@ -6,12 +6,16 @@ import java.util.Scanner;
 public class ArrayFixo {
 
     public static String menuInicial() {
-        return "1 – Inserir elementos\n" + "2 – Encontrar uma palavra\n" + "3 – Apagar um elemento\n" + "0 – Terminar";
+        return "1 – Inserir elementos\n" +
+                "2 – Encontrar uma palavra\n" +
+                "3 – Apagar um elemento\n" +
+                "0 – Terminar";
     }
 
-    String[] tmp;
-    int tamanhoAtual;
-    private static String[] palavras = new String[30000];
+
+    String[] tmp; // Array temporário
+    int tamanhoAtual; // Tamanho atual do array
+    private static String[] palavras = new String[30000]; // array de palavras com tamanho fixo
 
     public static void main(String[] args) {
 
@@ -36,18 +40,10 @@ public class ArrayFixo {
                     System.out.println("A tarefa demorou " + tempoLer + " nanosegundos a  ler a Lista de Palavras\n");
                     break;
                 case 2:
-                    inicio2 = System.nanoTime();
                     tempoDeExecucaoEncontrarPalavra();
-                    fim2 = System.nanoTime();
-                    tempoEncontrar = fim2 - inicio2;
-                    System.out.println("A tarefa demorou " + tempoEncontrar + " nanosegundos a encontrar uma Palavra\n");
                     break;
                 case 3:
-                    inicio3 = System.nanoTime();
                     tempoDeExecucaoEliminarPalavra();
-                    fim3 = System.nanoTime();
-                    tempoEliminar = fim3 - inicio3;
-                    System.out.println("A tarefa demorou " + tempoEliminar + " nanosegundos a eliminar uma Palavra\n");
                     break;
                 case 0:
                     System.out.println("Até à proxima!");
@@ -61,12 +57,13 @@ public class ArrayFixo {
 
     private static void tempoDeExecucaoLerPalavras() {
         String[] arrayPalavras = new String[30000];
-        int contador = 0;
-        File file = new File("D:\\Desktop\\mods\\palavras.txt");
+        int contador = 0; // contador para controlar a posição no array
 
+        //leitura do arquivo palavras.txt
+        File file = new File("C:\\Users\\diogo\\Downloads\\palavras.txt");
         try (Scanner leitor = new Scanner(file)) {
-            while (leitor.hasNextLine()) {
-                arrayPalavras[contador++] = leitor.nextLine();
+            while (leitor.hasNextLine()) { // Enquanto houver linhas no arquivo
+                arrayPalavras[contador++] = leitor.nextLine(); // Lê a linha e armazena no array
             }
             System.out.println("Dados carregados com sucesso!");
         } catch (FileNotFoundException e) {
@@ -77,12 +74,15 @@ public class ArrayFixo {
 
 
     private static void tempoDeExecucaoEncontrarPalavra() {
+        //inicialização do array de palavras
         String[] arrayPalavras = new String[30000];
         int contador = 0;
-        File file = new File("D:\\Desktop\\mods\\palavras.txt");
+
+        //leitura do arquivo palavras.txt
+        File file = new File("C:\\Users\\diogo\\Downloads\\palavras.txt");
         try (Scanner leitor = new Scanner(file)) {
-            while (leitor.hasNextLine()) {
-                arrayPalavras[contador++] = leitor.nextLine();
+            while (leitor.hasNextLine()) { // Enquanto houver linhas no arquivo
+                arrayPalavras[contador++] = leitor.nextLine(); // lê a linha e armazena no array
             }
             System.out.println("Dados carregados com sucesso!");
         } catch (FileNotFoundException e) {
@@ -92,23 +92,31 @@ public class ArrayFixo {
 
         String[] palavrasProcuradas = {"trazemos", "intulhos", "glosa",
                 "assombrados", "sinceramente", "urubu", "fumou", "aope", "viçosos", "repercurtir"};
+
+        //ciclo para encontrar quanto tempo demorou para encontrar cada palavra individualmente
         for (String palavra : palavrasProcuradas) {
+            long inicio = System.nanoTime();
             int posicao = -1;
             for (int i = 0; i < contador; i++) {
                 if (arrayPalavras[i].equals(palavra)) {
-                    posicao = i;
+                    posicao = i; //se a palavra for encontrada, armazena a posição
                     break;
                 }
             }
+            long fim = System.nanoTime();
+            long tempoDecorrido = fim - inicio;
+            System.out.println("Tempo de execução para a palavra '" + palavra + "': " + tempoDecorrido);
             System.out.println("A posição da palavra '" + palavra + "' é: " + posicao);
         }
     }
 
-
+    // método para eliminar palavras do array
     private static void tempoDeExecucaoEliminarPalavra() {
-        String[] arrayPalavras = new String[30000];
+        String[] arrayPalavras = new String[30000]; //invoca o array de palavras
         int contador = 0;
-        File file = new File("D:\\Desktop\\mods\\palavras.txt");
+
+        //leitura do arquivo palavras.txt
+        File file = new File("C:\\Users\\diogo\\Downloads\\palavras.txt");
         try (Scanner leitor = new Scanner(file)) {
             while (leitor.hasNextLine()) {
                 arrayPalavras[contador++] = leitor.nextLine();
@@ -121,11 +129,13 @@ public class ArrayFixo {
 
         String[] palavrasRemover = {"trazemos", "intulhos", "glosa",
                 "assombrados", "sinceramente", "urubu", "fumou", "aope", "viçosos", "repercurtir"};
+
+        //ciclo para encontrar quanto tempo demorou para remover cada palavra individualmente
         for (String palavra : palavrasRemover) {
             long inicio = System.nanoTime();
             boolean palavraRemovida = false;
             for (int i = 0; i < contador; i++) {
-                if (arrayPalavras[i].equals(palavra)) {
+                if (arrayPalavras[i] != null && arrayPalavras[i].equals(palavra)) {
                     arrayPalavras[i] = null;
                     palavraRemovida = true;
                     break;
@@ -142,6 +152,5 @@ public class ArrayFixo {
         }
     }
 }
-
 
 
